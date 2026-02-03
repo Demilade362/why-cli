@@ -4,7 +4,7 @@
   "description": "Explain why a file exists in a repo by showing who uses it and its git origin.",
   "type": "module",
   "bin": {
-    "why": "./dist/index.js"
+    "why": "dist/index.js"
   },
   "scripts": {
     "dev": "ts-node src/index.ts",
@@ -18,11 +18,20 @@
     "analysis"
   ],
   "license": "MIT",
-  "files": ["dist"],
-  "engines": { "node": ">=18" },
-  "repository": { "type": "git", "url": "git+ssh://git@github.com/Demilade362/why-cli.git" },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Demilade362/why-cli.git"
+  },
   "homepage": "https://github.com/Demilade362/why-cli#readme",
-  "bugs": { "url": "https://github.com/Demilade362/why-cli/issues" },
+  "bugs": {
+    "url": "https://github.com/Demilade362/why-cli/issues"
+  },
   "dependencies": {
     "commander": "^12.1.0",
     "fast-glob": "^3.3.2",
