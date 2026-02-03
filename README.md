@@ -1,4 +1,7 @@
-# why-cli
+# why-analysis-cli
+
+[![npm version](https://img.shields.io/npm/v/why-cli.svg)](https://www.npmjs.com/package/why-cli)
+[![CI](https://github.com/Demilade362/why-cli/actions/workflows/publish.yml/badge.svg)](https://github.com/Demilade362/why-cli/actions)
 
 `why` is a small Node.js CLI that helps you answer the question: why does this file exist?
 It scans a repository for direct importers of a target file, estimates impact, and extracts the file's git origin.
@@ -14,7 +17,7 @@ Install
 Global (recommended for CLI use):
 
 ```bash
-npm install -g why-cli
+npm install -g why-analysis-cli
 ```
 
 Run from source (dev):

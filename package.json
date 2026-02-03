@@ -1,5 +1,5 @@
 {
-  "name": "why-cli",
+  "name": "why-analysis-cli",
   "version": "1.0.1",
   "description": "Explain why a file exists in a repo by showing who uses it and its git origin.",
   "type": "module",
@@ -9,13 +9,18 @@
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "tsc -p tsconfig.json",
+    "prepare": "npm run build",
     "start": "node dist/index.js",
     "link": "npm run build && npm link"
   },
   "keywords": [
     "cli",
     "codebase",
-    "analysis"
+    "analysis",
+    "why",
+    "import",
+    "dependency",
+    "developer-tool"
   ],
   "license": "MIT",
   "files": [
@@ -26,11 +31,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Demilade362/why-cli.git"
+    "url": "git+ssh://git@github.com/Demilade362/why-analysis-cli.git"
   },
-  "homepage": "https://github.com/Demilade362/why-cli#readme",
+  "homepage": "https://github.com/Demilade362/why-analysis-cli#readme",
   "bugs": {
-    "url": "https://github.com/Demilade362/why-cli/issues"
+    "url": "https://github.com/Demilade362/why-analysis-cli/issues"
   },
   "dependencies": {
     "commander": "^12.1.0",
@@ -38,6 +43,9 @@
     "ignore": "^5.3.2",
     "picocolors": "^1.1.1"
   },
+  "publishConfig": { "access": "public" },
+  "preferGlobal": true,
+  "author": "Demilade362",
   "devDependencies": {
     "@types/node": "^24.0.0",
     "ts-node": "^10.9.2",
