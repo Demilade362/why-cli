@@ -1,0 +1,37 @@
+{
+  "name": "why-cli",
+  "version": "0.1.0",
+  "description": "Explain why a file exists in a repo by showing who uses it and its git origin.",
+  "type": "module",
+  "bin": {
+    "why": "./dist/index.js"
+  },
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "link": "npm run build && npm link"
+  },
+  "keywords": [
+    "cli",
+    "codebase",
+    "analysis"
+  ],
+  "license": "MIT",
+  "files": ["dist"],
+  "engines": { "node": ">=18" },
+  "repository": { "type": "git", "url": "git+https://github.com/youruser/why-cli.git" },
+  "homepage": "https://github.com/youruser/why-cli#readme",
+  "bugs": { "url": "https://github.com/youruser/why-cli/issues" },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "fast-glob": "^3.3.2",
+    "ignore": "^5.3.2",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.0"
+  }
+}

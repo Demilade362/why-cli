@@ -1,0 +1,6 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [0.1.0] - 2026-02-03
+- Initial public release: CLI that finds direct importers, computes impact, and extracts git origin metadata.
