@@ -1,6 +1,6 @@
 {
   "name": "why-analysis-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Explain why a file exists in a repo by showing who uses it and its git origin.",
   "type": "module",
   "bin": {

@@ -6,7 +6,7 @@ export async function getGitOrigin(cwd: string, absPath: string, relPath: string
     // Use spawnSync to avoid shell interpretation of '|' in format
     const a = spawnSync(
       "git",
-      ["log", "--diff-filter=A", "--follow", "--format=%H|%ci|%s", "-1", "--", relPath],
+      ["log", "--diff-filter=A", "--follow", "--format=%H|%ci|%s|%an|%ae", "-1", "--", relPath],
       { cwd, encoding: "utf8" }
     );
     const out = String(a.stdout || "").trim();
@@ -14,9 +14,16 @@ export async function getGitOrigin(cwd: string, absPath: string, relPath: string
       const parts = out.split("|");
       const hash = parts[0];
       const dateRaw = parts[1] ?? "";
-      const subject = parts.slice(2).join("|");
+      const subject = parts[2] ?? "";
+      const authorName = parts[3] ?? "";
+      const authorEmail = parts[4] ?? undefined;
       const date = dateRaw.split(" ")[0] ?? dateRaw;
-      return { commit: hash.slice(0, 7), date, subject };
+      return {
+        commit: hash.slice(0, 7),
+        date,
+        subject,
+        author: { name: authorName, email: authorEmail },
+      };
     }
   } catch (e) {
     // fallthrough
@@ -26,7 +33,7 @@ export async function getGitOrigin(cwd: string, absPath: string, relPath: string
   try {
     const b = spawnSync(
       "git",
-      ["log", "--follow", "--format=%H|%ci|%s", "--", relPath],
+      ["log", "--follow", "--format=%H|%ci|%s|%an|%ae", "--", relPath],
       { cwd, encoding: "utf8" }
     );
     const out = String(b.stdout || "").trim();
@@ -37,9 +44,16 @@ export async function getGitOrigin(cwd: string, absPath: string, relPath: string
         const parts = last.split("|");
         const hash = parts[0];
         const dateRaw = parts[1] ?? "";
-        const subject = parts.slice(2).join("|");
+        const subject = parts[2] ?? "";
+        const authorName = parts[3] ?? "";
+        const authorEmail = parts[4] ?? undefined;
         const date = dateRaw.split(" ")[0] ?? dateRaw;
-        return { commit: hash.slice(0, 7), date, subject };
+        return {
+          commit: hash.slice(0, 7),
+          date,
+          subject,
+          author: { name: authorName, email: authorEmail },
+        };
       }
     }
   } catch (e) {

@@ -12,7 +12,7 @@ export const HardIgnore = [
     ".git/",
     "coverage/",
 ];
-function getRepoIgnore(cwd, extra = []) {
+export function getRepoIgnore(cwd, extra = []) {
     // Some type declarations expose ignore as a namespace. Cast to any to call.
     const ig = ignore();
     const gitignorePath = path.join(cwd, ".gitignore");

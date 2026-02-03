@@ -2,15 +2,22 @@ import { spawnSync } from "node:child_process";
 export async function getGitOrigin(cwd, absPath, relPath) {
     try {
         // Use spawnSync to avoid shell interpretation of '|' in format
-        const a = spawnSync("git", ["log", "--diff-filter=A", "--follow", "--format=%H|%ci|%s", "-1", "--", relPath], { cwd, encoding: "utf8" });
+        const a = spawnSync("git", ["log", "--diff-filter=A", "--follow", "--format=%H|%ci|%s|%an|%ae", "-1", "--", relPath], { cwd, encoding: "utf8" });
         const out = String(a.stdout || "").trim();
         if (out) {
             const parts = out.split("|");
             const hash = parts[0];
             const dateRaw = parts[1] ?? "";
-            const subject = parts.slice(2).join("|");
+            const subject = parts[2] ?? "";
+            const authorName = parts[3] ?? "";
+            const authorEmail = parts[4] ?? undefined;
             const date = dateRaw.split(" ")[0] ?? dateRaw;
-            return { commit: hash.slice(0, 7), date, subject };
+            return {
+                commit: hash.slice(0, 7),
+                date,
+                subject,
+                author: { name: authorName, email: authorEmail },
+            };
         }
     }
     catch (e) {
@@ -18,7 +25,7 @@ export async function getGitOrigin(cwd, absPath, relPath) {
     }
     // Fallback: earliest entry from git log --follow
     try {
-        const b = spawnSync("git", ["log", "--follow", "--format=%H|%ci|%s", "--", relPath], { cwd, encoding: "utf8" });
+        const b = spawnSync("git", ["log", "--follow", "--format=%H|%ci|%s|%an|%ae", "--", relPath], { cwd, encoding: "utf8" });
         const out = String(b.stdout || "").trim();
         if (out) {
             const lines = out.split(/\r?\n/).filter(Boolean);
@@ -27,9 +34,16 @@ export async function getGitOrigin(cwd, absPath, relPath) {
                 const parts = last.split("|");
                 const hash = parts[0];
                 const dateRaw = parts[1] ?? "";
-                const subject = parts.slice(2).join("|");
+                const subject = parts[2] ?? "";
+                const authorName = parts[3] ?? "";
+                const authorEmail = parts[4] ?? undefined;
                 const date = dateRaw.split(" ")[0] ?? dateRaw;
-                return { commit: hash.slice(0, 7), date, subject };
+                return {
+                    commit: hash.slice(0, 7),
+                    date,
+                    subject,
+                    author: { name: authorName, email: authorEmail },
+                };
             }
         }
     }
